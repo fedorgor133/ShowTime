@@ -7,6 +7,8 @@
 
 This project employs **Gherkin** for defining test cases in a structured and human-readable format and utilizes **Cucumber** for test execution.
 
+Keeping low assembly and high cohesion, following the **GRASP** patterns, **S.O.L.I.D** design principles and using design patterns like AbstractFactory, Singleton, Facade, Strategy...
+
 ---
 
 ## Description
@@ -34,10 +36,6 @@ Registered users enjoy additional functionalities:
 - Follow and participate in **common interest groups** with other users.
 
 ---
-
-## Design Principles
-
-The application follows best practices in **software design**, emphasizing **low coupling** and **high cohesion** while incorporating key design patterns:
 
 ### Applied Design Patterns
 
