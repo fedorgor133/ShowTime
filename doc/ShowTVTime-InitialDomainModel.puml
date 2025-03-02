@@ -1,0 +1,109 @@
+@startuml
+
+class Movie  #aliceblue;line:blue;line.bold;text:blue {
+title : String
+description : String
+image : Image
+firstReleaseYear: Integer
+language: String
+duration: Integer
+IMDbRating: Float
+}
+
+class Series #aliceblue;line:blue;line.bold;text:blue {
+title : String
+description : String
+image : Image
+firstReleaseYear : Integer
+language: String
+duration: Integer
+IMDbRating: Float
+}
+
+class Season #aliceblue;line:blue;line.bold;text:blue {
+  seriesName: String
+  seasonNumber : Integer
+  releaseYear : Integer
+  IMDbRating: Float
+}
+
+class Episode #aliceblue;line:blue;line.bold;text:blue {
+seriesName: String
+seasonNumber: Integer
+episodeNumber: Integer
+episodeName : String
+releaseYear : Integer
+duration : Integer
+description : String
+language : String
+image : Image
+IMDbRating: Float
+}
+
+class Platform {
+platformName : String
+}
+
+class Character {
+realName: String
+fictionalName: String
+}
+
+class Genre  #aliceblue;line:blue;line.bold;text:blue{
+genreName: String
+}
+
+class Actor {
+realName: String
+stageName: String
+birthDate: Date
+birthPlace: String
+}
+
+class Director {
+directorName : String
+birthDate: Date
+birthPlace: String
+}
+
+class User  #aliceblue;line:blue;line.bold;text:blue{
+email : String
+password : String
+profileName : String
+mobileNumber: String
+}
+
+class InterestGroup  {
+groupName : String
+}
+
+class showTVTime
+
+showTVTime o-right- "1..*" User: registers
+
+showTVTime *-- "1..*" "Series": provides
+showTVTime *-- "1..*" "Movie": provides
+Series "1" *-- "1..*" Season: has
+Season "1" *-- "1..*" Episode: has
+
+"Movie" "*" -right- "1..*" Director: isDirectedBy
+
+"Movie" "*" -- "1..*" InterestGroup: belongsTo
+"Movie" "*" --- "1..*" Character: features
+
+"Movie" "*" -- "1..*" Platform: isAvailableOn
+
+"Series" "*" -left- "1..*" Director: isDirectedBy
+
+Series "*" -- "1..*" InterestGroup: belongsTo
+Series "*" -- "1..*" Character: features
+
+Series "*" -- "1..*" Platform: isAvailableOn
+
+"Movie" "*" --- "1..*" Actor: stars
+"Series" "*" -- "1..*" Actor: stars
+
+"Movie" "*" --- "1..*" Genre: has
+"Series" "*" -- "1..*" Genre: has
+
+@enduml
