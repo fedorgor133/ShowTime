@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+skinparam actorStyle Hollow
+
+title Use Case Diagram for ShowTime
+
+actor User as user
+actor Person as client
+
+rectangle ShowTime {
+
+    package "Main Use Cases" {
+        usecase (UC1. Sign UP)  as UC1 #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC2. Sign IN) as UC2  #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC3. View Catalog) as UC3  #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC3.a View Movies) as UC31 #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC3.b View Series) as UC32 #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC4. View Seasons) as UC4 #aliceblue;line:blue;line.bold;text:blue
+        usecase (UC5. View Episodes) as UC5 #aliceblue;line:blue;line.bold;text:blue
+    }
+
+    package "Additional Features" {
+        usecase (UC6. View Watched History) as UC6 #lightgreen;line:blue;line.bold;text:blue
+        usecase (UC7. View What Next) as UC7 #lightgreen;line:blue;line.bold;text:blue
+        usecase (UC8. Manage Groups) as UC8 #lightgreen;line:blue;line.bold;text:blue
+        usecase (UC9. Answer Quiz Question) as UC9 #lightgreen;line:blue;line.bold;text:blue
+        usecase (UC10. Mark & Rate Movies or Episodes) as UC10
+        usecase (UC11.  Play Full Quiz) as UC11
+    }
+
+    user -- UC1
+    user -- UC3
+    client -- UC3
+    client -- UC2
+
+    client -- UC6
+    client -- UC7
+    client -- UC8
+    client -- UC10
+    client -- UC11
+
+    UC3 <|-- UC32
+
+    UC4 -> UC32 : <<extends>>
+    UC5 -right-> UC4 : <<extends>>
+    UC3 <|- UC31
+
+    UC11 --> UC9 : <<include>>
+
+}
+
+@enduml

@@ -1,0 +1,87 @@
+@startuml
+
+
+package resources.dao {
+
+package MOCK {
+class DAOEpisodeMOCK {
+  + add(Episode): boolean
+  + getById(String[]): Optional<Episode>
+  - addEpisode(String, int, int, String, int): void
+  + update(Episode, String[]): boolean
+  + delete(Episode): boolean
+   all: List<Episode>
+}
+class DAOInterestGroupMOCK {
+  + update(InterestGroup, String[]): boolean
+  - addInterestGroup(String, String): void
+  + add(InterestGroup): boolean
+  + getById(String[]): Optional<InterestGroup>
+  + delete(InterestGroup): boolean
+   all: List<InterestGroup>
+}
+
+class DAOMovieMOCK {
+  + getById(String[]): Optional<Movie>
+  + update(Movie, String[]): boolean
+  + delete(Movie): boolean
+  + add(Movie): boolean
+  - addMovie(String, String, String, int, String, int, float): void
+   all: List<Movie>
+}
+
+class DAOUserMOCK {
+  - addUser(String, String): void
+  + getById(String[]): Optional<User>
+  + delete(User): boolean
+  + update(User, String[]): boolean
+  + add(User): boolean
+   all: List<User>
+}
+
+class DAOSeriesMOCK {
+  - addSeries(String, String, String, int, String, int): void
+  + add(Series): boolean
+  + update(Series, String[]): boolean
+  + delete(Series): boolean
+  + getById(String[]): Optional<Series>
+   all: List<Series>
+}
+
+class DAOGenreMOCK {
+  + delete(Genre): boolean
+  + add(Genre): boolean
+  + update(Genre, String[]): boolean
+  + getById(String[]): Optional<Genre>
+  - addGenre(String): void
+   all: List<Genre>
+}
+
+class DAOSeasonMOCK {
+  + getById(String, int): Optional<Season>
+  + add(Season): boolean
+  + update(Season, String[]): boolean
+  - addSeason(String, int): void
+  + delete(Season): boolean
+  + getById(String[]): Optional<Season>
+   all: List<Season>
+}
+
+package entities {
+interface DAOEpisode << interface >>
+interface DAOInterestGroup << interface >>
+interface DAOMovie << interface >>
+interface DAOSeries << interface >>
+interface DAOSeason << interface >>
+interface DAOUser << interface >>
+interface DAOGenre << interface >>
+}
+DAOEpisodeMOCK                  -down->  DAOEpisode
+DAOInterestGroupMOCK             -down->  DAOInterestGroup
+DAOMovieMOCK                     -down->  DAOMovie
+DAOUserMOCK                      -down->  DAOUser
+DAOSeriesMOCK                    -down->  DAOSeries
+DAOGenreMOCK                     -down->  DAOGenre
+DAOSeasonMOCK                    -down->  DAOSeason
+
+@enduml

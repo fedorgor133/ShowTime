@@ -1,0 +1,114 @@
+@startuml
+
+
+package resources.DAO {
+
+interface DAO<T> << interface >> {
+  + add(T): boolean
+  + delete(T): boolean
+   all: List<T>
+}
+interface DAOEntity<T> << interface >> {
+  + getById(String[]): Optional<T>
+  + update(T, String[]): boolean
+}
+package entities {
+interface DAOEpisode << interface >>
+interface DAOInterestGroup << interface >>
+interface DAOMovie << interface >>
+interface DAOSeries << interface >>
+interface DAOSeason << interface >>
+interface DAOGenre << interface >>
+interface DAOUser << interface >>
+}
+
+package relationships{
+interface DAORelationshipInterestGroupSeries << interface >>
+interface DAORelationshipGenreMovie << interface >>
+}
+
+class Pair<T, V> {
+  ~ element1: T
+  ~ element2: V
+  + hashCode(): int
+  + equals(Object): boolean
+   element1: T
+   element2: V
+}
+
+}
+
+package resources.service {
+interface AbstractFactoryData << interface >> {
+
+}
+class DataService {
+   allMovies: List<Movie>
+   allRelationshipsInterestGroupSeries: List<Pair<String, String>>
+   allSeries: List<Series>
+   allInterestGroups: List<InterestGroup>
+   allUsers: List<User>
+   allGenres: List<Genre>
+   allRelationshipsMoviesGenres: List<Pair<String, String>>
+}
+class FactoryMOCK {
+
+}
+}
+
+package controller {
+class Controller{}
+}
+
+package model{
+class UserPortfolio {
+
+}
+class Movie {
+}
+class Series
+class Season
+class Episode
+class Genre
+class InterestGroup
+}
+
+DAOEpisode                      -[#008200,plain]-^  DAOEntity
+DAOInterestGroup                -[#008200,plain]-^  DAOEntity
+DAOUser                         -[#008200,plain]-^  DAOEntity
+DAORelationshipInterestGroupSeries -[#008200,plain]-^  ub.edu.resources.DAO.DAO
+DAORelationshipInterestGroupSeries -[#595959,dashed]->  Pair
+DAORelationshipGenreMovie       -[#008200,plain]-^  ub.edu.resources.DAO.DAO
+DAORelationshipGenreMovie       -[#595959,dashed]->  Pair
+DAOSeries                       -[#008200,plain]-^  DAOEntity
+DAOSeason                       -[#008200,plain]-^  DAOEntity
+DAOGenre                        -[#008200,plain]-^  DAOEntity
+DAOEntity --|> ub.edu.resources.DAO.DAO
+
+DataService ..> DAOUser: uses
+DataService ..> DAOMovie: uses
+DataService ..> DAOSeries: uses
+DataService ..> DAOSeason: uses
+DataService ..> DAOEpisode: uses
+DataService ..> DAOInterestGroup: uses
+DataService ..> DAOGenre: uses
+
+DataService .down.> AbstractFactoryData: uses
+
+AbstractFactoryData <|-down- FactoryMOCK: implements
+
+Controller                     "1" -down-> "factory\n1" AbstractFactoryData
+Controller                     "1" -[#595959,plain]-> "userPortfolio\n1" UserPortfolio
+Controller                     "1" -[#595959,plain]-> "dataService\n1" DataService
+Controller                     "1" -[#595959,plain]-> "factory\n1" FactoryMOCK
+Controller                     "1" -[#595959,plain]-> "listInterestGroups\n*" InterestGroup
+Controller                     "1" -[#595959,plain]-> "listMovies\n*" Movie
+Controller                     "1" -[#595959,plain]-> "listSeries\n*" Series
+Controller                     "1" -[#595959,plain]-> "listGenres\n*" Genre
+
+Series "1" *-down-> "1..*" Season: contains
+Season "1" *-down-> "1..*" Episode: contains
+InterestGroup "1" *--> "1..*" Series: contains
+Movie "1" *--> "1..*" Genre: contains
+
+@enduml
